@@ -8,6 +8,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import { ApiParam } from '@nestjs/swagger';
+import { Amount } from './amount.model';
 import { Product } from './product.model';
 import { ProductsService } from './products.service';
 
@@ -30,9 +31,9 @@ export class ProductsController {
     return this.productsService.findOne(id);
   }
 
-  @Patch('sell/:id')
-  update(@Param('id') id: string, @Body() updateProductDto: Product) {
-    return this.productsService.update(id, updateProductDto);
+  @Patch('sell/:name')
+  update(@Param('name') name: string, @Body() updateAmountDto: Amount) {
+    return this.productsService.update(name, updateAmountDto);
   }
 
   @Delete(':id')

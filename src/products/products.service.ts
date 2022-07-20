@@ -2,6 +2,7 @@ import { Injectable, Res } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
 import { Model } from 'mongoose';
+import { Amount } from './amount.model';
 import { Invoice, InvoiceDocument } from './invoice.model';
 import { Product, ProductDocument } from './product.model';
 
@@ -25,15 +26,12 @@ export class ProductsService {
     return this.productModel.findById(id);
   }
 
-  async update(id: string, product: Product) {
-    const currentAmount = this.productModel.findById(id);
-    return this.productModel.updateOne({ _id: id }, { $inc: { quantity: -1 } });
-    /* .exec(function (err, doc) {
-        if (err) throw err;
-        else {
-          res.json(doc);
-        }
-      }); */
+  async update(name: string, amount: Amount) {
+    const currentAmount = this.productModel.findOne({ name: name });
+    return this.productModel.updateOne(
+      { name: name },
+      { $inc: { quantity: -amount.amount } },
+    );
   }
 
   remove(id: string) {
