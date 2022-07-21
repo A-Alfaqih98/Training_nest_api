@@ -4,6 +4,11 @@ import { Document } from 'mongoose';
 
 export type ProductDocument = Product & Document;
 
+interface invoiceInterface {
+  amount: number;
+  date: Date;
+}
+
 @Schema()
 @ApiTags('products')
 export class Product {
@@ -18,6 +23,10 @@ export class Product {
   @Prop()
   @ApiProperty()
   quantity: number;
+
+  @Prop()
+  @ApiProperty()
+  invoices: invoiceInterface[];
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);

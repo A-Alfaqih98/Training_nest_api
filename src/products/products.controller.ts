@@ -26,9 +26,14 @@ export class ProductsController {
     return this.productsService.findAll();
   }
 
-  @Get('find/:id')
-  findOne(@Param('id') id: string) {
-    return this.productsService.findOne(id);
+  @Get('find/:name')
+  findOne(@Param('name') name: string) {
+    return this.productsService.findOne(name);
+  }
+
+  @Get('find/invoice/:invoice')
+  findInvoice(@Param('invoice') invoice: string) {
+    return this.productsService.findOne(invoice);
   }
 
   @Patch('sell/:name')
