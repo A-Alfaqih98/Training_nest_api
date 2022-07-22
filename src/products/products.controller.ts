@@ -41,7 +41,8 @@ export class ProductsController {
 
   @Post('sell')
   async sell(@Body() createInvoiceDto: Invoice) {
-    return await this.invoicesService.sell(createInvoiceDto);
+    return await (this.productsService.update(createInvoiceDto),
+    this.invoicesService.sell(createInvoiceDto));
   }
 
   @Delete(':id')

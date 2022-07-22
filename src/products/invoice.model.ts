@@ -5,8 +5,8 @@ import { Document } from 'mongoose';
 export type InvoiceDocument = Invoice & Document;
 
 export interface ObjectDto {
+  amount: number;
   name: string;
-  invoice: number;
   price: number;
 }
 
