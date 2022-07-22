@@ -13,20 +13,24 @@ export class ProductsService {
     @InjectModel(Product.name) private productModel: Model<ProductDocument>,
     @InjectModel(Invoice.name) private invoiceModel: Model<InvoiceDocument>,
   ) {}
+
+  // post product
   async create(product: Product): Promise<Product> {
     return this.productModel.create(product);
   }
 
+  // find all products
   findAll() {
     console.log(this.productModel.find());
-
     return this.productModel.find();
   }
 
+  // find product
   findOne(name: string) {
     return this.productModel.findOne({ name: name });
   }
 
+  // update quantity after selling
   update(invoice: Invoice) {
     invoice.order.forEach((element) => {
       return this.productModel.findOneAndUpdate(
@@ -34,10 +38,6 @@ export class ProductsService {
         { $inc: { quantity: -element.amount } },
       );
     });
-  }
-
-  remove(id: string) {
-    return this.productModel.findByIdAndDelete(id);
   }
 }
 
@@ -48,6 +48,7 @@ export class InvoicesService {
     @InjectModel(Invoice.name) private invoiceModel: Model<InvoiceDocument>,
   ) {}
 
+  // Post invoice
   async sell(invoice: Invoice): Promise<Invoice> {
     invoice.order.forEach(async (element) => {
       await this.productModel.findOneAndUpdate(
@@ -57,5 +58,10 @@ export class InvoicesService {
     });
 
     return await this.invoiceModel.create(invoice);
+  }
+
+  // search invoice
+  searchByProduct(name: string) {
+    return this.invoiceModel.find({ name: name });
   }
 }

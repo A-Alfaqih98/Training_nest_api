@@ -23,10 +23,6 @@ export class Product {
   @Prop()
   @ApiProperty()
   quantity: number;
-
-  @Prop()
-  @ApiProperty()
-  invoices: invoiceInterface[];
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);

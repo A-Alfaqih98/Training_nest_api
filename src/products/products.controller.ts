@@ -19,6 +19,7 @@ export class ProductsController {
     private readonly invoicesService: InvoicesService,
   ) {}
 
+  // First endpoint : Add product
   @Post('add')
   create(@Body() createProductDto: Product) {
     return this.productsService.create(createProductDto);
@@ -29,25 +30,22 @@ export class ProductsController {
     return this.productsService.findAll();
   }
 
+  // Second endpoint : find product
   @Get('find/:name')
   findOne(@Param('name') name: string) {
     return this.productsService.findOne(name);
   }
 
-  @Get('find/invoice/:invoice')
-  findInvoice(@Param('invoice') invoice: string) {
-    return this.productsService.findOne(invoice);
-  }
-
+  // Third endpoint: sell product
   @Post('sell')
   async sell(@Body() createInvoiceDto: Invoice) {
     return await (this.productsService.update(createInvoiceDto),
     this.invoicesService.sell(createInvoiceDto));
   }
 
-  @Delete(':id')
-  @ApiParam({ name: 'id' })
-  remove(@Param('id') id: string) {
-    return this.productsService.remove(id);
+  // Fourth endpoint: search invoice (by product name)
+  @Get('search/invoice/:product')
+  searchInvoice(@Param('product') product: string) {
+    return this.invoicesService.searchByProduct(product);
   }
 }
