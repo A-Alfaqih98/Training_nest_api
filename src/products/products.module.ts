@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ProductsService } from './products.service';
+import { InvoicesService, ProductsService } from './products.service';
 import { ProductsController } from './products.controller';
 import { Product, ProductSchema } from './product.model';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -13,6 +13,6 @@ import { Invoice, InvoiceSchema } from './invoice.model';
     ]),
   ],
   controllers: [ProductsController],
-  providers: [ProductsService],
+  providers: [ProductsService, InvoicesService],
 })
 export class ProductsModule {}
